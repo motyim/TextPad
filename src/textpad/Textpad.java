@@ -23,6 +23,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -34,6 +37,8 @@ public class Textpad extends Application {
     private TextArea text;
     private long textSize = 0;
     File mainFile ; 
+    
+    
 
     @Override
     public void start(Stage primaryStage) {
@@ -52,6 +57,8 @@ public class Textpad extends Application {
         MenuItem saveMenuItem = new MenuItem("Save");
         MenuItem saveAsMenuItem = new MenuItem("Save As..");
         MenuItem exitMenuItem = new MenuItem("Exit");
+        
+        
 
         Menu editMenu = new Menu("Edit");
         MenuItem undoMenuItem = new MenuItem("Undo");
@@ -79,6 +86,8 @@ public class Textpad extends Application {
         text.setPrefColumnCount(100);
         text.setWrapText(true);
         text.setPrefWidth(150);
+        
+      
 
         undoMenuItem.setOnAction(event -> {
             text.undo();
@@ -181,7 +190,20 @@ public class Textpad extends Application {
 
         });
         root.setCenter(text);
-
+        
+        //add ShortCut
+        newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+        openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+        saveMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));      
+        exitMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
+        
+        undoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+        cutMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
+        copyMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+        pasteMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
+        selectAllMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
+        deleteMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
+        
         Scene scene = new Scene(root, 800, 550);
         
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
@@ -192,7 +214,6 @@ public class Textpad extends Application {
         primaryStage.setTitle("TextPad One");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
     }
 
     public static void main(String[] args) {
